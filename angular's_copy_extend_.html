@@ -1,0 +1,71 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js">
+  </script>
+  </head>
+
+  <title>AngularJS Extend / Copy /</title>
+
+<script type='text/javascript'>//<![CDATA[
+
+angular.module('App', []);
+
+function Ctrl($scope) {
+
+    function copyNotValues(obj) {
+        var newObj = angular.copy(obj);
+        for (prop in newObj) {
+            if(newObj.hasOwnProperty(prop))
+            {
+                newObj[prop] = null;
+            }
+        };
+        return newObj;
+    }
+
+    $scope.master = {
+        foo: 'original foo',
+        bar: 'original bar'
+    };
+
+    $scope.copy = angular.copy($scope.master);
+    $scope.extend = angular.extend($scope.master);
+
+    $scope.copyNotValues = copyNotValues($scope.master);
+
+}
+//]]> 
+
+</script>
+
+  
+</head>
+
+<body>
+  <div ng-app="App" ng-controller="Ctrl">
+    <label>foo
+        <input ng-model="master.foo" />
+    </label>
+    <label>bar
+        <input ng-model="master.bar" />
+    </label>
+    <br/>
+    <br/>
+    <label>master</label><pre>{{ master | json }}</pre>
+
+    <label>copy</label><pre>{{ copy | json }}</pre>
+
+    <label>extend</label><pre>{{ extend | json }}</pre>
+ <strong>copyNotValues</strong><pre>{{ copyNotValues | json }}</pre>
+
+</div>
+  
+
+</body>
+
+</html>
+
